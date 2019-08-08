@@ -1,0 +1,11 @@
+framework module HabitAnalytics {
+  umbrella header "HabitAnalytics.h"
+
+  export *
+  module * { export * }
+}
+
+module HabitAnalytics.Swift {
+    header "HabitAnalytics-Swift.h"
+    requires objc
+}
