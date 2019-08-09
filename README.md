@@ -1,2 +1,4 @@
-# habit-analytics-ios-sdk
-This repository contains the public Habit Analytics Cocoapod distribution framework
+# Habit Analytics
+
+This repository contains the Habit Analytics framework. 
+Documentation coming soon :)
