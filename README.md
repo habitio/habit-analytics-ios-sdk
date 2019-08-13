@@ -67,8 +67,8 @@ The initialization must be done in **didFinishLaunchingWithOptions**:
 ```
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-HabitAnalytics.shared.initialize(namespace: String, analyticsInfo: NSDictionary?, authInfo: NSDictionary?) { (statusCode) in
-}
+    HabitAnalytics.shared.initialize(namespace: String, analyticsInfo: NSDictionary?, authInfo: NSDictionary?) { (statusCode) in
+    }
 }
 ```
 
@@ -112,12 +112,13 @@ The *setAuthorization* method is called once a user has been successfully signed
 
 ```
 HabitAnalytics.shared.setAuthorization(authInfo: NSDictionary, completion: { (statusCode) in
-if statusCode == HabitStatusCodes.USER_INITIALIZATION_SUCCESS {
-// Success
-}
-else { 
-// Handle according to status code 
-}
+    
+    if statusCode == HabitStatusCodes.USER_INITIALIZATION_SUCCESS {
+    // Success
+    }
+    else { 
+    // Handle according to status code 
+    }
 
 })
 ```
@@ -140,9 +141,9 @@ Also add the following method that is executed when background fetch is triggere
 ```
 func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
-HabitAnalytics.shared.handleBGFetch { (result) in
-completionHandler(result)
-}
+    HabitAnalytics.shared.handleBGFetch { (result) in
+    completionHandler(result)
+    }
 }
 ```
 
@@ -197,17 +198,17 @@ Check the [Authorization Documentation](https://github.com/habitio/habit-analyti
 
 ```
 func HabitAnalyticsStatusChange(statusCode: HabitStatusCode) {
-switch statusCode {
-case HabitStatusCodes.SET_VALID_AUTHENTICATION_INFO:
+    switch statusCode {
+    case HabitStatusCodes.SET_VALID_AUTHENTICATION_INFO:
 
-// Obtain a new authInfo by refreshing the token.
-HabitAnalytics.shared.setAuthorization(authInfo: newValidAuthInfo) { (statusCode) in
-}
-break
+    // Obtain a new authInfo by refreshing the token.
+    HabitAnalytics.shared.setAuthorization(authInfo: newValidAuthInfo) { (statusCode) in
+    }
+    break
 
-default:
-debugPrint("HabitAnalytics: " + String(statusCode) + " -> " + HabitStatusCodes.getDescription(code: statusCode))
-}
+    default:
+    debugPrint("HabitAnalytics: " + String(statusCode) + " -> " + HabitStatusCodes.getDescription(code: statusCode))
+    }
 }
 ```
 
@@ -216,9 +217,8 @@ debugPrint("HabitAnalytics: " + String(statusCode) + " -> " + HabitStatusCodes.g
 To logout a user, just call the corresponding method. *Make sure you call logout when switching users.*
 ```
 HabitAnalytics.shared.logout(completion: { (code) in
-HabitAnalytics.shared.logout(completion: { (code) in
-debugPrint(String(code) + " : " + HabitStatusCodes.getDescription(code: code))
-})
+  debugPrint(String(code) + " : " + HabitStatusCodes.getDescription(code: code))
+  })
 })
 ```
 
