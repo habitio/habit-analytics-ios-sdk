@@ -19,11 +19,11 @@ Example:
 
 ```
 {
-"name": "John Doe",
-"email": "john.doe@email.com,
-"password": "user_password",
-"appId": "your_app_namespace",
-"device": "iphone"
+  "name": "John Doe",
+  "email": "john.doe@email.com,
+  "password": "user_password",
+  "appId": "your_app_namespace",
+  "device": "iphone"
 }
 ```
 
@@ -51,16 +51,16 @@ If it succeeds, the result of this operation is an object with the user authoriz
 
 ```
 {
-"client_id": String,
-"owner_id": String (User ID),
-"access_token": String,
-"refresh_token": String,
-"expires": "2019-11-10T13:28:59.542+0000",
-"grant_type": "password",
-"endpoints": {
-"http": String,
-"mqtt": String,
-}
+  "client_id": String,
+  "owner_id": String (User ID),
+  "access_token": String,
+  "refresh_token": String,
+  "expires": "2019-11-10T13:28:59.542+0000",
+  "grant_type": "password",
+  "endpoints": {
+      "http": String,
+      "mqtt": String,
+   }
 }
 ```
 
@@ -80,16 +80,16 @@ If the request is successful you should receive a new authorization info in the 
 
 ```
 {
-"client_id": String,
-"owner_id": String (User ID),
-"access_token": String,
-"refresh_token": String,
-"expires": "2019-11-10T13:28:59.542+0000",
-"grant_type": "password",
-"endpoints": {
-"http": String,
-"mqtt": String,
-}
+  "client_id": String,
+  "owner_id": String (User ID),
+  "access_token": String,
+  "refresh_token": String,
+  "expires": "2019-11-10T13:28:59.542+0000",
+  "grant_type": "password",
+  "endpoints": {
+      "http": String,
+      "mqtt": String,
+   }
 }
 ```
 
