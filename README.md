@@ -217,8 +217,8 @@ func HabitAnalyticsStatusChange(statusCode: HabitStatusCode) {
 To logout a user, just call the corresponding method. *Make sure you call logout when switching users.*
 ```
 HabitAnalytics.shared.logout(completion: { (code) in
-  debugPrint(String(code) + " : " + HabitStatusCodes.getDescription(code: code))
-  })
+    debugPrint(String(code) + " : " + HabitStatusCodes.getDescription(code: code))
+    })
 })
 ```
 
