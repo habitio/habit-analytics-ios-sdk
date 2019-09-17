@@ -230,6 +230,34 @@ Xcode 10.3 - IDE
 iOS 10
 
 
+## Analysed Data 
+
+| Property  | Received on event (Background) | Received on event (Foreground) | Query by snapshot | Permission requested to the user | Frequency |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| network/current_wifi | NO	| YES | YES	| Not necessary | application start, location change update, background fetch |
+| network/carrier | NO | NO	| YES | Not necessary | application start, location change update, background fetch |
+| network/internet_connection | NO | YES | YES | Not necessary | application start, location change update, background fetch |
+| network/scan | NO | NO | NO | NA | Not possible due to OS limitations |
+| network/roaming | NO | NO | NO | NA | Not possible due to OS limitations |
+| network/flight_mode | NO | NO | NO | NA | Not possible due to OS limitations |
+| network/mobile_data_enabled | NO | NO	| NO | NA | Not possible due to OS limitations |
+| location/location	| YES | YES | YES | YES | application start, location change update, background fetch |
+| location/visit | YES | YES | NO | YES | application start, location change update, background fetch |
+| movement/activity	| NO | YES | NO | YES | application start, location change update, background fetch |
+| movement/activity_history	| NO | NO | YES | YES | application start, location change update, background fetch |
+| battery/charge | NO | NO | YES | Not necessary | application start, location change update, background fetch |
+| battery/level | NO | NO | YES | Not necessary | application start, location change update, background fetch |
+| devices/bluetooth | NO | NO | YES | Permission text is added but the OS is not requesting yet. May change in future | application start, location change update, background fetch |
+| current_device/agent | NO | NO | YES | Not necessary | application start, location change update, background fetch
+| current_device/installed_packages | NO | NO | NO | NA | Not possible due to OS limitations |
+| current_device/added_package | NO | NO | NO | NA | Not possible due to OS limitations |
+| current_device/removed_package | NO | NO | NO | NA | Not possible due to OS limitations |
+
+## Future work
+
+- Configuration of which data is supposed to be analysed by the SDK.
+
+
 ## Versioning
 For the versions available, see the [tags on this repository](https://github.com/habitio/habit-analytics-ios-sdk/tags). 
 
