@@ -18,6 +18,14 @@ import SystemConfiguration
 import UIKit
 import UserNotifications
 public typealias HabitStatusCode = Swift.Int
+@objc @_inheritsConvenienceInitializers public class HabitAnalyticsSupportedCapabilites : ObjectiveC.NSObject {
+  public static let Location: Swift.String
+  public static let Bluetooth: Swift.String
+  public static let Motion: Swift.String
+  public static let AnalyticsTracker: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
 @objc @_inheritsConvenienceInitializers public class HabitStatusCodes : ObjectiveC.NSObject {
   public static let USER_INITIALIZATION_SUCCESS: Swift.Int
   public static let HABIT_SDK_INITIALIZATION_SUCCESS: Swift.Int
@@ -152,8 +160,8 @@ extension UIDevice {
 @objc @_inheritsConvenienceInitializers public class HabitAnalytics : ObjectiveC.NSObject {
   @objc public static let shared: HabitAnalytics.HabitAnalytics
   public var delegate: HabitAnalytics.HabitAnalyticsDelegate?
-  @objc public func initialize(namespace: Swift.String, analyticsInfo: Foundation.NSDictionary? = nil, authInfo: Foundation.NSDictionary? = nil, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
-  public func setAuthorization(authInfo: Foundation.NSDictionary, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
+  @objc public func initialize(namespace: Swift.String, analyticsInfo: Foundation.NSDictionary? = nil, authInfo: Foundation.NSDictionary? = nil, enabledCapabilities: [Swift.String]? = nil, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
+  public func setAuthorization(authInfo: Foundation.NSDictionary, enabledCapabilities: [Swift.String]? = nil, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
   public func track(eventName: Swift.String, properties: [Swift.AnyHashable : Any]?) -> HabitAnalytics.HabitStatusCode
   @objc public func handleBGFetch(completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
   public func logout(completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)

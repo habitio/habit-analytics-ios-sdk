@@ -224,7 +224,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) HabitAnalyti
 ///
 /// \param completion completion handler that returns a status code
 ///
-- (void)initializeWithNamespace:(NSString * _Nonnull)namespace_ analyticsInfo:(NSDictionary * _Nullable)analyticsInfo authInfo:(NSDictionary * _Nullable)authInfo completion:(void (^ _Nonnull)(NSInteger))completion;
+- (void)initializeWithNamespace:(NSString * _Nonnull)namespace_ analyticsInfo:(NSDictionary * _Nullable)analyticsInfo authInfo:(NSDictionary * _Nullable)authInfo enabledCapabilities:(NSArray<NSString *> * _Nullable)enabledCapabilities completion:(void (^ _Nonnull)(NSInteger))completion;
 - (void)handleBGFetchWithCompletionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
 - (void)setDebugLogStatusWithEnabled:(BOOL)enabled;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -234,6 +234,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) HabitAnalyti
 SWIFT_PROTOCOL("_TtP14HabitAnalytics22HabitAnalyticsDelegate_")
 @protocol HabitAnalyticsDelegate <NSObject>
 - (void)HabitAnalyticsStatusChangeWithStatusCode:(NSInteger)statusCode;
+@end
+
+
+SWIFT_CLASS("_TtC14HabitAnalytics34HabitAnalyticsSupportedCapabilites")
+@interface HabitAnalyticsSupportedCapabilites : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
