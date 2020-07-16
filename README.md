@@ -223,7 +223,7 @@ HabitAnalytics.shared.logout(completion: { (code) in
 ```
 
 ## Built With
-Xcode 11.4 - IDE
+Xcode 11.5 - IDE
 
 
 ## Minimum supported version
