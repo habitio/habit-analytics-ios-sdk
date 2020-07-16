@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.2 (swiftlang-1103.0.32.1 clang-1103.0.32.29)
+// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
 // swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name HabitAnalytics
 import AVFoundation
 import Alamofire
@@ -54,11 +54,11 @@ public typealias HabitStatusCode = Swift.Int
   @objc override dynamic public init()
 }
 public enum ReachabilityError : Swift.Error {
-  case FailedToCreateWithAddress(Darwin.sockaddr_in)
-  case FailedToCreateWithHostname(Swift.String)
-  case UnableToSetCallback
-  case UnableToSetDispatchQueue
-  case UnableToGetInitialFlags
+  case failedToCreateWithAddress(Darwin.sockaddr, Swift.Int32)
+  case failedToCreateWithHostname(Swift.String, Swift.Int32)
+  case unableToSetCallback(Swift.Int32)
+  case unableToSetDispatchQueue(Swift.Int32)
+  case unableToGetFlags(Swift.Int32)
 }
 @available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
 public let ReachabilityChangedNotification: Foundation.NSNotification.Name
@@ -81,7 +81,9 @@ public class Reachability {
     public func hash(into hasher: inout Swift.Hasher)
   }
   public enum Connection : Swift.CustomStringConvertible {
-    case none, wifi, cellular
+    @available(*, deprecated, renamed: "unavailable")
+    case none
+    case unavailable, wifi, cellular
     public var description: Swift.String {
       get
     }
@@ -108,9 +110,9 @@ public class Reachability {
   public var connection: HabitAnalytics.Reachability.Connection {
     get
   }
-  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil)
-  convenience public init?(hostname: Swift.String, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil)
-  convenience public init?(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil)
+  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main)
+  convenience public init(hostname: Swift.String, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  convenience public init(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
   @objc deinit
 }
 extension Reachability {
@@ -166,8 +168,11 @@ extension UIDevice {
   @objc public func handleBGFetch(completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
   public func logout(completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
   @objc public func setDebugLogStatus(enabled: Swift.Bool)
+  public func getNumberOfStoredEvents() -> Swift.Int
   public func getDebugLog() -> Swift.String
   public func deleteDebugLog()
+  public func getVersion() -> Swift.String
+  public func handlePushNotification(userInfo: [Swift.AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }
@@ -177,4 +182,3 @@ extension HabitAnalytics.Reachability.NetworkStatus : Swift.Equatable {}
 extension HabitAnalytics.Reachability.NetworkStatus : Swift.Hashable {}
 extension HabitAnalytics.Reachability.Connection : Swift.Equatable {}
 extension HabitAnalytics.Reachability.Connection : Swift.Hashable {}
-extension HabitAnalytics.HabitAnalytics : ObjectiveC.NSObjectProtocol {}
