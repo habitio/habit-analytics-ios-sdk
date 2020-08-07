@@ -45,6 +45,7 @@ As required by Apple, it's necessary to add the following permissions' descripti
 * NSLocationWhenInUseUsageDescription
 * NSLocationUsageDescription
 * NSBluetoothPeripheralUsageDescription
+* NSBluetoothAlwaysUsageDescription
 * NSMotionUsageDescription
 
 The best practice is to notify the user beforehand, providing an incentive to approve the permissions. Once the SDK is *initialized* with the user authorization info, or the *setAuthorization* method is called, two alerts will be shown, asking the user to grant access to the location services and to the device's motion information.
@@ -67,7 +68,7 @@ The initialization must be done in **didFinishLaunchingWithOptions**:
 ```
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    HabitAnalytics.shared.initialize(namespace: String, analyticsInfo: NSDictionary?, authInfo: NSDictionary?) { (statusCode) in
+    HabitAnalytics.shared.initialize(namespace: String, analyticsInfo: NSDictionary?, authInfo: NSDictionary?, enabledCapabilities: [String]) { (statusCode) in
     }
 }
 ```
@@ -84,8 +85,20 @@ The **authInfo** parameter is the authorization object that was obtained when th
 
 The parameter **analyticsInfo** is a parameter that allows some optional customizations but as default it should be *nil*. For more information please contact support@habit.io
 
+### **Enabled Capabilities**
 
-### **Status Code**
+
+The parameter **enabledCapabilities** allows customizing which capabilities are to be enabled in the SDK. By default all capabilities are enabled.
+The parameter is an array with the supported capabilities from the following list:
+
+* HabitAnalyticsSupportedCapabilites.AnalyticsTracker
+* HabitAnalyticsSupportedCapabilites.Bluetooth
+* HabitAnalyticsSupportedCapabilites.Location
+* HabitAnalyticsSupportedCapabilites.Motion
+
+
+
+### **Status Codes**
 
 The initialization returns a *status code* which can be used to identify if the initialization was successful or if an error occurred. 
 
@@ -143,6 +156,19 @@ func application(_ application: UIApplication, performFetchWithCompletionHandler
 
     HabitAnalytics.shared.handleBGFetch { (result) in
     completionHandler(result)
+    }
+}
+```
+
+### **Push Notifications**
+
+After registering for push notifications ensure that you call the SDK push notifications handler every time you receive a new push notification.
+
+```
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+    HabitAnalytics.shared.handlePushNotification(userInfo: userInfo) { (result) in
+         completionHandler(result)
     }
 }
 ```
