@@ -10,7 +10,7 @@ If you have any questions don't hesitate to contact us at support@habit.io.
 
 
 ## Built With
-Xcode 12 - IDE
+Xcode 11.7 - IDE
 
 
 ## Minimum supported version

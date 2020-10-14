@@ -46,6 +46,7 @@ public typealias HabitStatusCode = Swift.Int
   public static let ANALYTICS_UX_INITIALIZATION_ERROR: Swift.Int
   public static let ANALYTICS_UX_NOT_INITIALIZED: Swift.Int
   public static let ANALYTICS_EVENTS_NOT_INITIALIZED: Swift.Int
+  public static let INVALID_EXTERNAL_ID: Swift.Int
   public static let SET_VALID_AUTHENTICATION_INFO: Swift.Int
   @objc public static func getDescription(code: Swift.Int) -> Swift.String
   @objc deinit
