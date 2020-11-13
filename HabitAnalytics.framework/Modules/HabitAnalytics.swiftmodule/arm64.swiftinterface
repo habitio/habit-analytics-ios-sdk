@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+// swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name HabitAnalytics
 import AVFoundation
 import Alamofire
@@ -29,8 +29,7 @@ public typealias HabitStatusCode = Swift.Int
 @objc @_inheritsConvenienceInitializers public class HabitStatusCodes : ObjectiveC.NSObject {
   public static let USER_INITIALIZATION_SUCCESS: Swift.Int
   public static let HABIT_SDK_INITIALIZATION_SUCCESS: Swift.Int
-  public static let EXTERNAL_ID_SET_SUCCESSFULLY: Swift.Int
-  public static let HABIT_SDK_INITIALIZED_LOCATION_PERMISSIONS_REQUIRED: Swift.Int
+  public static let HABIT_SDK_SET_AUTHENTICATION: Swift.Int
   public static let ANALYTICS_UX_EVENT_SENT: Swift.Int
   public static let LOGOUT_SUCCESS: Swift.Int
   public static let ANOTHER_USER_ALREADY_AUTHENTICATED_LOGOUT: Swift.Int
@@ -38,15 +37,17 @@ public typealias HabitStatusCode = Swift.Int
   public static let HABIT_SDK_INITIALIZATION_ERROR: Swift.Int
   public static let LOGOUT_ERROR: Swift.Int
   public static let HABIT_SDK_NOT_INITIALIZED: Swift.Int
-  public static let SDK_DISABLED_CONTACT_SUPPORT: Swift.Int
-  public static let EXTERNAL_ID_ALREADY_SET: Swift.Int
   public static let INVALID_ANALYTICS_INFO: Swift.Int
   public static let ANALYTICS_UX_INVALID_APPLICATION_NAME: Swift.Int
   public static let ANALYTICS_UX_INVALID_TOKEN: Swift.Int
   public static let ANALYTICS_UX_INITIALIZATION_ERROR: Swift.Int
   public static let ANALYTICS_UX_NOT_INITIALIZED: Swift.Int
   public static let ANALYTICS_EVENTS_NOT_INITIALIZED: Swift.Int
-  public static let INVALID_EXTERNAL_ID: Swift.Int
+  public static let ANALYTICS_EVENTS_INVALID_ID: Swift.Int
+  public static let ANALYTICS_EVENTS_INVALID_SECRET: Swift.Int
+  public static let ANALYTICS_EVENTS_OAUTH_ERROR: Swift.Int
+  public static let ANALYTICS_EVENTS_LOGOUT_ERROR: Swift.Int
+  public static let ANALYTICS_EVENTS_INITIALIZATION_ERROR: Swift.Int
   public static let SET_VALID_AUTHENTICATION_INFO: Swift.Int
   @objc public static func getDescription(code: Swift.Int) -> Swift.String
   @objc deinit
@@ -155,60 +156,21 @@ extension UIDevice {
   public func logout()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Permissions : ObjectiveC.NSObject {
-  public var location: Swift.Bool
-  public var bluetooth: Swift.Bool
-  public var motion: Swift.Bool
-  @objc override dynamic public init()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class UXConfiguration : ObjectiveC.NSObject {
-  public var token: Swift.String
-  @objc override dynamic public init()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Capabilities : ObjectiveC.NSObject {
-  public var location: Swift.Bool
-  public var bluetooth: Swift.Bool
-  public var motion: Swift.Bool
-  public var ux_events: Swift.Bool
-  @objc override dynamic public init()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers public class Configuration : ObjectiveC.NSObject {
-  public var capabilities: HabitAnalytics.Capabilities
-  public var permissions: HabitAnalytics.Permissions
-  public var uxEventsConfig: HabitAnalytics.UXConfiguration
-  public var customURL: Swift.String
-  @objc override dynamic public init()
-  @objc deinit
-}
 @objc public protocol HabitAnalyticsDelegate : ObjectiveC.NSObjectProtocol {
   @objc func HabitAnalyticsStatusChange(statusCode: HabitAnalytics.HabitStatusCode)
 }
 @objc @_inheritsConvenienceInitializers public class HabitAnalytics : ObjectiveC.NSObject {
   @objc public static let shared: HabitAnalytics.HabitAnalytics
   public var delegate: HabitAnalytics.HabitAnalyticsDelegate?
-  public var configuration: HabitAnalytics.Configuration?
-  @objc public func initialize(analyticsID: Swift.String, analyticsAPIKey: Swift.String, configuration: HabitAnalytics.Configuration?, externalID: Swift.String? = nil, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
-  public func setExternalID(identifier: Swift.String, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
-  public enum PermissionType {
-    case location
-    case bluetooth
-    case motion
-    public static func == (a: HabitAnalytics.HabitAnalytics.PermissionType, b: HabitAnalytics.HabitAnalytics.PermissionType) -> Swift.Bool
-    public var hashValue: Swift.Int {
-      get
-    }
-    public func hash(into hasher: inout Swift.Hasher)
-  }
-  public func updatePermissions(permissionType: HabitAnalytics.HabitAnalytics.PermissionType, permissionStatus: Swift.Bool, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
-  public func stopSDK()
+  @objc public func initialize(namespace: Swift.String, analyticsInfo: Foundation.NSDictionary? = nil, authInfo: Foundation.NSDictionary? = nil, enabledCapabilities: [Swift.String]? = nil, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
+  public func setAuthorization(authInfo: Foundation.NSDictionary, enabledCapabilities: [Swift.String]? = nil, completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
   public func track(eventName: Swift.String, properties: [Swift.AnyHashable : Any]?) -> HabitAnalytics.HabitStatusCode
   @objc public func handleBGFetch(completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
   public func logout(completion: @escaping (HabitAnalytics.HabitStatusCode) -> Swift.Void)
   @objc public func setDebugLogStatus(enabled: Swift.Bool)
   public func getNumberOfStoredEvents() -> Swift.Int
+  public func getDebugLog() -> Swift.String
+  public func deleteDebugLog()
   public func getVersion() -> Swift.String
   public func handlePushNotification(userInfo: [Swift.AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
   @objc override dynamic public init()
@@ -220,6 +182,3 @@ extension HabitAnalytics.Reachability.NetworkStatus : Swift.Equatable {}
 extension HabitAnalytics.Reachability.NetworkStatus : Swift.Hashable {}
 extension HabitAnalytics.Reachability.Connection : Swift.Equatable {}
 extension HabitAnalytics.Reachability.Connection : Swift.Hashable {}
-extension HabitAnalytics.HabitAnalytics : ObjectiveC.NSObjectProtocol {}
-extension HabitAnalytics.HabitAnalytics.PermissionType : Swift.Equatable {}
-extension HabitAnalytics.HabitAnalytics.PermissionType : Swift.Hashable {}
