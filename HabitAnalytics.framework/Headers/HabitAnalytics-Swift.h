@@ -208,12 +208,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+
+SWIFT_PROTOCOL("_TtP14HabitAnalytics22HabitAnalyticsDelegate_")
+@protocol HabitAnalyticsDelegate <NSObject>
+- (void)HabitAnalyticsStatusChangeWithStatusCode:(NSInteger)statusCode;
+@end
+
 @class NSDictionary;
 
-SWIFT_CLASS("_TtC14HabitAnalytics14HabitAnalytics")
-@interface HabitAnalytics : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) HabitAnalytics * _Nonnull shared;)
-+ (HabitAnalytics * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS("_TtC14HabitAnalytics17HabitAnalyticsSDK")
+@interface HabitAnalyticsSDK : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) HabitAnalyticsSDK * _Nonnull shared;)
++ (HabitAnalyticsSDK * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 /// Function that initializes the HabitSDK.
 /// \param namespace Application namespace
 ///
@@ -227,12 +233,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) HabitAnalyti
 - (void)handleBGFetchWithCompletionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
 - (void)setDebugLogStatusWithEnabled:(BOOL)enabled;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_PROTOCOL("_TtP14HabitAnalytics22HabitAnalyticsDelegate_")
-@protocol HabitAnalyticsDelegate <NSObject>
-- (void)HabitAnalyticsStatusChangeWithStatusCode:(NSInteger)statusCode;
 @end
 
 
